@@ -54,13 +54,10 @@ public class GestureFragment extends Fragment implements GestureOverlayView.OnGe
     public void choose(String TAG) {
         switch (TAG) {
             case "Add":
-            default:
                 textView.setText("请绘制需要添加的手势");
                 TAG_LISTENER = TAG;
                 //获取GestureOverlayView绘制区域对象
                 GestureOverlayView gestureOverlayView = view.findViewById(R.id.gestureview);
-                //设置绘制颜色
-                gestureOverlayView.setGestureColor(Color.BLACK);
                 //设置绘制线条粗细
                 gestureOverlayView.setGestureStrokeWidth(20);
                 //设置监听器，监听手势是否绘制结束
@@ -134,7 +131,7 @@ public class GestureFragment extends Fragment implements GestureOverlayView.OnGe
                 //根据gesture对象包含的手势信息创建位图并显示
                 bitmap = gesture.toBitmap(128, 128, 20, Color.GREEN);
                 imageView.setImageBitmap(bitmap);
-
+//                Log.e("TAG", "onClick: ");
                 new AlertDialog.Builder((MainActivity) getActivity()).setView(view_gesture).setPositiveButton("Save"
                         , new DialogInterface.OnClickListener() {
                             @Override
@@ -142,13 +139,14 @@ public class GestureFragment extends Fragment implements GestureOverlayView.OnGe
                                 //动态申请存储权限
                                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                         Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                                dialog.cancel();
+                                Log.e("TAG", "onClick: ");
+                                dialog.dismiss();
                             }
                         }).setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
+                                dialog.dismiss();
                             }
                         }).show();
                 break;
